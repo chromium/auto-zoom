@@ -72,10 +72,10 @@ function restoreOptions() {
  * Set the font size of the sample text for the ideal font size option.
  */
 function setSampleTextSize() {
-  doGetZoomSettings().then(function(zoomSettings) {
+  doGetZoom(undefined).then(function(currentZoom) {
     // Set the font size to how the idealFontSize would look at 100% zoom.
     $('sampleText').style.fontSize =
-        ($('idealFontSize').value / zoomSettings.defaultZoomFactor) + 'px';
+        ($('idealFontSize').value / currentZoom) + 'px';
   });
 }
 

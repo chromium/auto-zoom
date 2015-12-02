@@ -7,8 +7,9 @@
   "description": "This extension automatically zooms pages",
   "version": "0.1",
 
-  "browser_action": {
-    "default_popup": "options_popup.html"
+  "options_ui": {
+    "page": "options_page.html",
+    "chrome_style": true
   },
 
   "background": {
