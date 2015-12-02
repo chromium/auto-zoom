@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto Zoom Options</title>
+    <style>
+      body {
+        padding: 1em;
+        margin: auto;
+        min-width: 500px;
+      }
+      div {
+        padding-bottom: 10px;
+      }
+      #idealFontSize {
+        max-width: 4em;
+      }
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <label>
+        <input type="checkbox" id="ignoreOverrides">
+        Auto zoom even when a page's zoom level was previously changed by the user.
+      </label>
+    </div>
+
+    <div>
+      <label>
+        The font size that you find most comfortable to read:
+        <input type="number" id="idealFontSize" min="6" max="99">
+        <div id="sampleText">You should be able to read this comfortably.</div>
+      </label>
+    </div>
+
+    <div>
+      <p>Metric weighting (0 = do not use, 10 = significant impact):</p>
+      <div>
+        <label>
+          Font Size
+          <input type="range" id="fontSizeWeight" min="0" max="10">
+        </label>
+      </div>
+      <div>
+        <label>
+          Margins
+          <input type="range" id="marginWeight" min="0" max="10">
+        </label>
+      </div>
+    </div>
+
+    <button id="save">Save</button>
+    <span id="status"></span>
+
+    <script src="api.js"></script>
+    <script src="options.js"></script>
+    <script src="options_popup.js"></script>
+  </body>
+</html>
+
