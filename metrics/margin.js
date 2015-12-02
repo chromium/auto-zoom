@@ -95,8 +95,8 @@ metrics.margin = {
 
       if (isCenteredContainer(el, computedStyle, parentComputedStyle,
                               parentCenters)) {
-        let totalHeight = elementTotalHeight(el, computedStyle);
-        if (el.offsetWidth > 0 && totalHeight > 0) {
+        if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+          let totalHeight = elementTotalHeight(el, computedStyle);
           let cssWidth = parseFloat(computedStyle.width);
           let relative = isWidthRelativeToViewport(
               el, widthDeclarations, cssWidth, bodyContentWidth);
@@ -137,10 +137,9 @@ metrics.margin = {
 
       if (isCenteredContainer(document.body, bodyComputedStyle,
                               documentComputedStyle, false)) {
-        let bodyTotalHeight = elementTotalHeight(
-            document.body, bodyComputedStyle);
-
-        if (document.body.offsetWidth > 0 && bodyTotalHeight > 0) {
+        if (document.body.offsetWidth > 0 && document.body.offsetHeight > 0) {
+          let bodyTotalHeight = elementTotalHeight(
+              document.body, bodyComputedStyle);
           let documentContentHeight = elementContentHeight(
               document.documentElement, documentComputedStyle);
           let documentContentWidth = elementContentWidth(
