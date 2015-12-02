@@ -196,7 +196,7 @@ metrics.margin = {
       }
     }
 
-    if (!maxContainerWidth) {
+    if (!maxContainerWidth || !contentDimensions.height) {
       return {zoom: 0, confidence: 0};
     }
 

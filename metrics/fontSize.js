@@ -54,9 +54,9 @@ metrics.fontSize = {
      * as the ideal font size.
      */
     let firstQuartile = fontSizeFirstQuartile(fontSizeDistribution);
-    if (firstQuartile) {
-      let percentTextual = textArea / (textArea + objectArea);
-      let confidence = percentTextual > 0.5 ? 1.0 : percentTextual;
+    let percentTextual = textArea / (textArea + objectArea);
+    let confidence = percentTextual > 0.5 ? 1.0 : percentTextual;
+    if (firstQuartile && confidence) {
       return {
         zoom: idealFontSize / firstQuartile,
         confidence: confidence
