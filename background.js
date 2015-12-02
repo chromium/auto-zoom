@@ -39,6 +39,104 @@ function metricsWeightedAverage(metricResults) {
 
 
 /**
+ * Hold an election among the predefined zoom factors to
+ * determine which is most appropriate given the metric results.
+ * @param {Array<Object>} metricResults An array of metric results.
+ * @param {number} defaultZoomFactor The default zoom factor.
+ * @return {number} The winning zoom factor.
+ */
+function electZoomFactor(metricResults, defaultZoomFactor) {
+  let totalWeight = 0.0;
+  for (let i = 0, len = metricResults.length; i < len; ++i) {
+    totalWeight += metricResults[i].weight * metricResults[i].confidence;
+  }
+
+  /**
+   * Predefined zoom factors.
+   * See components/ui/zoom/page_zoom_constants.h
+   */
+  let ZOOM_FACTORS = [0.25, 0.333, 0.5, 0.666, 0.75, 0.9, 1,
+                      1.1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5];
+
+  /**
+   * Return the predefined zoom factor that's closest to the given zoom factor.
+   * @param {number} targetZoomFactor The zoom factor to round.
+   * @return {number} The rounded zoom factor.
+   */
+  function closestZoomFactor(targetZoomFactor) {
+    if (ZOOM_FACTORS[0] >= targetZoomFactor) {
+      return ZOOM_FACTORS[0];
+    } else if (ZOOM_FACTORS[ZOOM_FACTORS.length - 1] <= targetZoomFactor) {
+      return ZOOM_FACTORS[ZOOM_FACTORS.length - 1];
+    } else {
+      for (let i = 0, len = ZOOM_FACTORS.length; i + 1 < len; ++i) {
+        let below = ZOOM_FACTORS[i];
+        let above = ZOOM_FACTORS[i + 1];
+        if (targetZoomFactor >= below && targetZoomFactor <= above) {
+          return (Math.abs(targetZoomFactor - below) <
+                  Math.abs(targetZoomFactor - above)) ? below : above;
+        }
+      }
+    }
+  }
+
+  // votes[i] stores the number of votes given to ZOOM_FACTORS[i].
+  let votes = new Array(ZOOM_FACTORS.length);
+  for (let i = 0, len = votes.length; i < len; ++i) {
+    votes[i] = 0;
+  }
+
+  // Initial voting.
+  for (let i = 0, len = metricResults.length; i < len; ++i) {
+    let zoomFactor = closestZoomFactor(metricResults[i].zoom);
+    votes[ZOOM_FACTORS.indexOf(zoomFactor)] +=
+        metricResults[i].weight * metricResults[i].confidence / totalWeight;
+  }
+
+  while (true) {
+    let leader = null;
+    let loser = null;
+
+    for (let i = 0, len = votes.length; i < len; ++i) {
+      if (votes[i] < Number.EPSILON) {
+        continue; // Zoom factors that are eliminated are ignored.
+      }
+
+      if (leader === null || votes[i] > votes[leader]) {
+        leader = i;
+      }
+
+      if ((loser === null || votes[i] < votes[loser]) &&
+          !zoomValuesEqual(ZOOM_FACTORS[i], defaultZoomFactor)) {
+        loser = i;
+      }
+    }
+
+    // A zoom factor has a majority, so it wins the election.
+    if (votes[leader] >= 0.5) {
+      return ZOOM_FACTORS[leader];
+    }
+
+    // Eliminate last place zoom factor
+    // and transfer its votes to the next best zoom factor
+    // (the first zoom factor closer to the default zoom factor
+    // that has not already been eliminated).
+    let nextFactor = loser;
+    do {
+      if (ZOOM_FACTORS[nextFactor] > defaultZoomFactor) {
+        nextFactor -= 1;
+      } else {
+        nextFactor += 1;
+      }
+    } while (votes[nextFactor] < Number.EPSILON);
+
+    votes[nextFactor] += votes[loser];
+    votes[loser] = 0;
+  }
+}
+
+
+/**
  * Returns a promise that resolves to the computed zoom factor
  * based on the content of the page.
  * @param {Tab} tab The tab for which we're computing the zoom factor.
@@ -75,6 +173,8 @@ function computeZoom(tab, pageInfo, currentZoom) {
       marginMetric,
     ];
 
+    // TODO(mcnee) Decide on a method of combining metrics.
+    // return electZoomFactor(metricResults, zoomSettings.defaultZoomFactor);
     return metricsWeightedAverage(metricResults);
   });
 }
