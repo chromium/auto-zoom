@@ -28,6 +28,9 @@ function metricsWeightedAverage(metricResults) {
 
   let zoomFactor = 0.0;
   for (let i = 0, len = metricResults.length; i < len; ++i) {
+    console.log('[Auto Zoom] Zoom ' + metricResults[i].zoom + ' weighted ' +
+                (metricResults[i].weight * metricResults[i].confidence /
+                 totalWeight));
     zoomFactor += metricResults[i].zoom *
                   metricResults[i].weight *
                   metricResults[i].confidence;
@@ -171,6 +174,8 @@ chrome.tabs.onZoomChange.addListener(function(zoomChangeInfo) {
 // Handle messages containing page information from content scripts.
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (sender.tab) {
+    console.log('[Auto Zoom] Page info from ' + sender.tab.url + ' ' +
+                JSON.stringify(request, null, 2));
     activeListeners.delete(sender.tab.id).then(function() {
       return doSetZoomSettings(sender.tab.id, {scope: 'per-tab'});
     }).then(function() {
