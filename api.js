@@ -64,7 +64,6 @@ var doGetZoomSettings = wrapInPromise(chrome.tabs, 'getZoomSettings');
 var doSetZoom = wrapInPromise(chrome.tabs, 'setZoom');
 var doSetZoomSettings = wrapInPromise(chrome.tabs, 'setZoomSettings');
 var doExecuteScript = wrapInPromise(chrome.tabs, 'executeScript');
-var doGetBackgroundPage = wrapInPromise(chrome.runtime, 'getBackgroundPage');
 var doStorageLocalGet = wrapInPromise(chrome.storage.local, 'get');
 var doStorageLocalSet = wrapInPromise(chrome.storage.local, 'set');
 var doStorageLocalRemove = wrapInPromise(chrome.storage.local, 'remove');
