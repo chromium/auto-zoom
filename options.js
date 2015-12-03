@@ -11,6 +11,7 @@
 var OPTION_DEFAULTS = {
   ignoreOverrides: false,
   idealFontSize: 16,
+  idealPageWidth: 0.8,
   metricWeights: {
     fontSize: 8,
     margin: 4,

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Margin Slider</title>
+    <style>
+      html,body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        background-color: grey;
+        font-size: 100%;
+      }
+      #container {
+        min-height: 95%;
+        margin: 0px auto;
+        background-color: #fff;
+      }
+      #instructions {
+        max-width: 700px;
+        margin: 10px auto;
+        padding: 10px;
+      }
+      #controls {
+        width: 90%;
+        margin: 0px auto;
+      }
+      #controls:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      #increaseText {
+        float: left;
+      }
+      #reduceText {
+        float: right;
+      }
+      #idealPageWidth {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="instructions">
+        <h1>Prefered Page Width</h1>
+        <p>Please adjust this slider until the amount of space taken up by the margins looks good.</p>
+        <div id="controls">
+          <input type="range" id="idealPageWidth" min="50" max="100">
+          <span id="increaseText">Increase Margin</span>
+          <span id="reduceText">Reduce Margin</span>
+        </div>
+        <p>Some web pages center their content, leaving margins at the sides. We can adjust the zoom to make better use of this space. This will depend on the size of your monitor and your personal preferences.</p>
+        <p>With increased margins, more of a web page's content will fit on screen at once. With reduced margins, the content will take up more of the screen.</p>
+      </div>
+    </div>
+    <script src="api.js"></script>
+    <script src="options.js"></script>
+    <script src="margin_slider.js"></script>
+  </body>
+</html>
+

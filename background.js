@@ -52,7 +52,7 @@ function metricsWeightedAverage(metricResults) {
 function computeZoom(tab, pageInfo, currentZoom) {
   return Promise.all([
     doGetZoomSettings(tab.id),
-    doGetOptions(['idealFontSize', 'metricWeights'])
+    doGetOptions(['idealFontSize', 'idealPageWidth', 'metricWeights'])
   ]).then(function(values) {
     let zoomSettings = values[0];
     let items = values[1];
@@ -69,7 +69,7 @@ function computeZoom(tab, pageInfo, currentZoom) {
     fontSizeMetric.weight = items.metricWeights.fontSize;
 
     let marginMetric = metrics.margin.compute(pageInfo.contentDimensions,
-        pageInfo.centeredContainers, currentZoom);
+        pageInfo.centeredContainers, items.idealPageWidth, currentZoom);
     marginMetric.weight = items.metricWeights.margin;
 
     let metricResults = [

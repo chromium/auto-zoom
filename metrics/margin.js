@@ -170,10 +170,13 @@ metrics.margin = {
    * @param {Object} contentDimensions The dimensions of the body content.
    * @param {Array<Object>} centeredContainers The sizes of each of
    *    the centered containers.
+   * @param {number} idealPageWidth The percentage of the screen we want to
+   *    be take up by the content.
    * @param {number} currentZoom The current zoom factor.
    * @return {Object} The computed zoom factor and confidence.
    */
-  compute: function(contentDimensions, centeredContainers, currentZoom) {
+  compute: function(contentDimensions, centeredContainers,
+                    idealPageWidth, currentZoom) {
     /**
      * TODO(mcnee) Zooming when the width is defined relative to the viewport
      * does not affect the size of the margins. If we had access to the page
@@ -200,9 +203,8 @@ metrics.margin = {
       return {zoom: 0, confidence: 0};
     }
 
-    // TODO(mcnee) Add an option for the amount of margin space desired.
     return {
-      zoom: contentDimensions.width / maxContainerWidth,
+      zoom: idealPageWidth * contentDimensions.width / maxContainerWidth,
       confidence: totalHeight / contentDimensions.height
     };
   }
