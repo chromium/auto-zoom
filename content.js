@@ -4,6 +4,7 @@
 
 'use strict';
 
+
 /**
  * Gather information about the page and send it to the extension.
  */
