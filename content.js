@@ -21,7 +21,7 @@ function analysePage() {
       height: 0.0,
       width: 0.0
     },
-    // The dimentions of each of the containers centered in the page.
+    // The dimensions of each of the containers centered in the page.
     centeredContainers: [],
   };
 

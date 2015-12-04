@@ -11,7 +11,7 @@
 // The tabs whose zoom events we're interested in.
 var activeListeners = new PersistentSet('activeListeners');
 
-// The origins whose zoom factors have been overriden by the user.
+// The origins whose zoom factors have been overridden by the user.
 var overriddenOrigins = new PersistentSet('overriddenOrigins');
 
 
