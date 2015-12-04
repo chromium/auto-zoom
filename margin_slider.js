@@ -19,7 +19,7 @@ function $(id) {
  * Saves the option in storage.
  */
 function saveOption() {
-  let idealPageWidth = $('idealPageWidth').value / 100;
+  let idealPageWidth = parseFloat($('idealPageWidth').value) / 100;
 
   doSetOptions({idealPageWidth: idealPageWidth});
 }

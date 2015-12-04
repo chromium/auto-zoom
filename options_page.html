@@ -7,12 +7,42 @@
         padding: 1em;
         margin: auto;
         min-width: 500px;
+        font-size: 100%;
       }
       div {
-        padding-bottom: 10px;
+        margin-bottom: 10px;
       }
       #idealFontSize {
         max-width: 4em;
+      }
+      .hidden {
+        display: none;
+      }
+      a {
+        cursor: pointer;
+      }
+      #weightTexts {
+        margin-left: 30%;
+        width: 50%;
+      }
+      #weightTexts:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      #lowWeightText {
+        float: left;
+      }
+      #highWeightText {
+        float: right;
+      }
+      .weightSlider > span {
+        display: inline-block;
+        text-align: right;
+        width: 30%;
+      }
+      .weightSlider > input {
+        width: 50%;
       }
       input[type=number]::-webkit-inner-spin-button,
       input[type=number]::-webkit-outer-spin-button {
@@ -23,40 +53,42 @@
   <body>
     <div>
       <label>
-        <input type="checkbox" id="ignoreOverrides">
-        Auto zoom even when a page's zoom level was previously changed by the user.
-      </label>
-    </div>
-
-    <div>
-      <label>
         The font size that you find most comfortable to read:
         <input type="number" id="idealFontSize" min="6" max="99">
         <div id="sampleText">You should be able to read this comfortably.</div>
       </label>
     </div>
     <div>
-      <a href="margin_slider.html" target="_blank">Configure margins</a>
+      <a href="margin_slider.html" target="_blank">Configure margins...</a>
     </div>
 
-    <div>
-      <p>Metric weighting (0 = do not use, 10 = significant impact):</p>
+    <hr />
+
+    <div id="advancedSettings" class="hidden">
       <div>
         <label>
-          Font Size
+          <input type="checkbox" id="ignoreOverrides">
+          Auto zoom even when a page's zoom level was previously changed by the user.
+        </label>
+      </div>
+
+      <div>
+        <span>Metric weighting:</span>
+        <div id="weightTexts">
+          <span id="lowWeightText">Insignificant</span>
+          <span id="highWeightText">Significant</span>
+        </div>
+        <div class="weightSlider">
+          <span>Font Size</span>
           <input type="range" id="fontSizeWeight" min="0" max="10">
-        </label>
-      </div>
-      <div>
-        <label>
-          Margins
+        </div>
+        <div class="weightSlider">
+          <span>Margin</span>
           <input type="range" id="marginWeight" min="0" max="10">
-        </label>
+        </div>
       </div>
     </div>
-
-    <button id="save">Save</button>
-    <span id="status"></span>
+    <a id="advancedSettingsToggle">Show advanced settings...</a>
 
     <script src="api.js"></script>
     <script src="options.js"></script>

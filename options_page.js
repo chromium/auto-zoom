@@ -20,10 +20,15 @@ function $(id) {
  */
 function saveOptions() {
   let ignoreOverrides = $('ignoreOverrides').checked;
-  let idealFontSize = $('idealFontSize').value;
+  let idealFontSize = parseInt($('idealFontSize').value, 10);
 
-  let fontSizeWeight = $('fontSizeWeight').value;
-  let marginWeight = $('marginWeight').value;
+  // Validate font size.
+  if (isNaN(idealFontSize) || idealFontSize < 6 || idealFontSize > 99) {
+    idealFontSize = undefined;
+  }
+
+  let fontSizeWeight = parseInt($('fontSizeWeight').value, 10);
+  let marginWeight = parseInt($('marginWeight').value, 10);
 
   doGetZoom(undefined).then(function(currentZoom) {
     return doSetOptions({
@@ -34,12 +39,6 @@ function saveOptions() {
         margin: marginWeight,
       },
     });
-  }).then(function() {
-    let status = $('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 2000);
   });
 }
 
@@ -79,9 +78,25 @@ function setSampleTextSize() {
   });
 }
 
+
+/**
+ * Toggle whether the advanced settings are visible.
+ */
+function toggleAdvancedSettings() {
+  let wasVisible = $('advancedSettings').classList.toggle('hidden');
+  $('advancedSettingsToggle').textContent =
+      (wasVisible ? 'Show' : 'Hide') + ' advanced settings...';
+}
+
+
 chrome.tabs.onZoomChange.addListener(setSampleTextSize);
 $('idealFontSize').addEventListener('change', setSampleTextSize);
 
+$('ignoreOverrides').addEventListener('change', saveOptions);
+$('idealFontSize').addEventListener('change', saveOptions);
+$('fontSizeWeight').addEventListener('change', saveOptions);
+$('marginWeight').addEventListener('change', saveOptions);
+
+$('advancedSettingsToggle').addEventListener('click', toggleAdvancedSettings);
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-$('save').addEventListener('click', saveOptions);
