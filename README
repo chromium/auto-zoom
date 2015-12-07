@@ -1,0 +1,13 @@
+Browser Auto Zoom is an experimental feature for Chrome which automatically
+zooms web pages based on their content.
+
+Many sites can be difficult to read without zooming. They may not consider
+differences in monitor size and individual users may have different preferences
+or needs regarding the size of the content of the page (e.g. differences in
+visual acuity or viewing distance). Currently users have the option of changing
+the default zoom factor, but this does not account for differences between
+web pages. Users then have to manually zoom or reposition themselves to see
+better.
+
+This extension analyses the style of the page to compute and set an appropriate
+zoom factor automatically.
