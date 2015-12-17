@@ -1,8 +1,6 @@
 {
   "manifest_version": 2,
 
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs5B0SWjTkSceUELALPa7UyNiRw4H6dgy07Yx7hCZUmrOxL/Yt+q/3J9Ad+TzUZen6CO8ejPwwS47a4DghJPZ3eLShHKtuZVwrw23pZO4OFTRNJxhG2YNxa7KNADIK+kPNa71bBqwQP95BOPtbVM5izDK1VRY0rqtmy08HzLVFXDIlAILki3anegaA9Faq16Ro0+HBn6R/BdJc1UFu6HxBvwQI4LHhLg1z7wBwWYBALrG/hFVIb04Jt5+pLQto0ppMgL0T83Nd+DoeVaXmt3QNrMLoVrPUDgQlxcw2/oVdP7t81XIsMc3IuM/MYgxVPvaXDuB2PjXvuCY6yYeZsfUKwIDAQAB",
-
   "name": "Auto Zoom",
   "description": "This extension automatically zooms pages",
   "version": "0.1",
